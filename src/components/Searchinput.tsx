@@ -49,7 +49,7 @@ const SearchInput = () => {
             render={({ field }) => (
               <FormItem className="flex-1">
                 <FormControl>
-                  <Input placeholder="Enter recipent name" {...field} />
+                  <Input placeholder="Enter recipient name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

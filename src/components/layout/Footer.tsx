@@ -22,7 +22,7 @@ export const Footer = () => {
         ))}
       </div> */}
       <div className="text-center text-gray-500 text-md">
-        Made with ❤️ by <Link href="https://mong-dev.vercel.app/" target="_blank" className='font-bold hover:underline'>Mong</Link>
+        Made with ❤️ by <Link href="https://mong-dev.netlify.app/" target="_blank" className='font-bold hover:underline'>Mong</Link>
       </div>
       <p className="text-center text-gray-500 text-sm">
         &copy; {new Date().getFullYear()} All rights reserved.
