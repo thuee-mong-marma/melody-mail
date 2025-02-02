@@ -1,8 +1,9 @@
 import Link from "next/link"
 import CopyButton from "./CopyButton"
+import { env } from "@/config/env"
 
 export const PostSuccess = ({id}: {id: string}) => {
-  const fullUrl = `https://melodymail.vercel.app/details/${id}`
+  const fullUrl = `${env.APP_URL}/details/${id}`
 
   return (
     <div className="bg-green-700 p-4 rounded-md text-white">
