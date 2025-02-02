@@ -7,7 +7,6 @@ import {
   grapeNuts,
 } from "@/lib/fonts";
 import { Footer } from "@/components/layout/Footer";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,18 +27,11 @@ export default function RootLayout({
           grapeNuts.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
+        <Navbar />
           <main className="max-w-screen-lg mx-auto p-4 min-h-[calc(100vh-66px-57px)]">
             {children}
           </main>
           <Footer />
-        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,9 +1,9 @@
 import Link from "next/link"
 import CopyButton from "./CopyButton"
-import { env } from "@/config/env"
+
 
 export const PostSuccess = ({id}: {id: string}) => {
-  const fullUrl = `${env.APP_URL}/details/${id}`
+  const fullUrl = `${process.env.NEXT_PUBLIC_URL}/details/${id}`
 
   return (
     <div className="bg-green-700 p-4 rounded-md text-white">
