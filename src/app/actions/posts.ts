@@ -10,7 +10,6 @@ interface GetPostsProps {
 }
 
 export async function createPost(data: Omit<Posts, 'id' | 'createdAt'>) {
-  console.log('create post data', data)
   const newPost = await prismadb.posts.create({
       data
   });
@@ -43,18 +42,8 @@ export async function getPosts({page = 1, limit = 12, query = ""}: GetPostsProps
 }
 
 export async function getPostById(id: string) {
-
     const post = await prismadb.posts.findUnique({
         where: { id }
-
-    });
-    return post;
-}
-
-export async function getPostByRecipient(recipient: string) {
-
-    const post = await prismadb.posts.findMany({
-        where: { recipient }
 
     });
     return post;

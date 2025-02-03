@@ -20,12 +20,12 @@ export const MessageCard = ({ data, className }: MessageCardProps) => {
 
   return (
     <div
-      className={cn("flex flex-col justify-between max-w-sm w-full h-full border rounded-xl overflow-hidden bg-card shadow", className)}
+      className={cn("flex flex-col justify-between max-w-sm w-full h-full border rounded-xl overflow-hidden bg-card shadow-md", className)}
       onClick={onClick}
     >
+
       <div className="cursor-pointer flex flex-col gap-4 w-full h-full p-4 transition-colors duration-200 hover:bg-gray-50">
         <div className="flex items-center">
-
           <span className="text-sm text-gray-600">To:&nbsp;</span>
           <span className="font-medium text-sm text-gray-800">
             {data.recipient}
@@ -49,7 +49,7 @@ export const MessageCard = ({ data, className }: MessageCardProps) => {
             />
           </div>
           <div className="flex flex-col">
-            <p className="text-sm text-gray-950">{data.song_name}</p>
+            <p className="text-sm text-gray-950">{data.song_name.slice(0, 20)}...</p>
             <p className="text-xs text-gray-500">{data.song_artist}</p>
           </div>
         </div>

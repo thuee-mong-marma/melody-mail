@@ -25,7 +25,7 @@ export const Navbar = () => {
   return (
     <nav className="flex justify-between items-center border-b">
       <div className="w-full max-w-screen-lg mx-auto p-4 flex justify-between items-center">
-        <Link href="/" className="font-handwritten text-2xl">MelodyMail</Link>
+        <Link href="/" className="font-handwritten text-2xl font-bold">MelodyMail</Link>
         <ul className="space-x-4">
           {links.map((link) => (
             <Link key={link.href} href={link.href} className={cn(isCurrentPage(link.href) && "font-bold")}>
