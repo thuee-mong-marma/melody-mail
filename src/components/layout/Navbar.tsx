@@ -15,7 +15,12 @@ const links = [
     title: "Browse",
     href: "/browse",
   },
+  {
+    title: "History",
+    href: "/history",
+  }
 ];
+
 
 export const Navbar = () => {
   const pathname = usePathname();

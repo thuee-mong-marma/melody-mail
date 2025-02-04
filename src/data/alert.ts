@@ -7,3 +7,8 @@ export const submitAlert = {
   title: "Message Deletion Not Available",
   description: "Currently, we do not support message deletion. Once a message is posted, it cannot be removed. Please ensure your messages are appropriate before submitting.",
 }
+
+export const historyAlert = {
+  title: "",
+  description: "Your history will be removed after 7 days.",
+}

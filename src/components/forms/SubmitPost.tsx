@@ -19,6 +19,7 @@ import SongSelector from "@/components/SongSelector";
 import { createPost } from "@/app/actions/posts";
 import { Posts } from "@prisma/client";
 import { PostSuccess } from "../PostSuccess";
+import { setHistoryData } from "@/lib/utils";
 
 
 const searchFormSchema = z.object({
@@ -64,8 +65,10 @@ const SubmitPost = () => {
     if(post) {
       setSubmitted(true);
       setSubmittedPost(post);
+      setHistoryData(post.id)
     }
   };
+
 
   if(isSubmitted) {
     return <PostSuccess id={submittedPost?.id as string} />

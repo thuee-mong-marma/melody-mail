@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn, truncateText } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { Posts } from "@prisma/client";
 
@@ -33,7 +33,7 @@ export const MessageCard = ({ data, className }: MessageCardProps) => {
         </div>
         <div className="pb-1.5 justify-self-start">
           <p className="font-handwritten text-xl text-gray-800 sm:text-2xl">
-            {data.message.slice(0, 80)}...
+            {truncateText(data.message, 80)}
           </p>
         </div>
       </div>
@@ -49,10 +49,11 @@ export const MessageCard = ({ data, className }: MessageCardProps) => {
             />
           </div>
           <div className="flex flex-col">
-            <p className="text-sm text-gray-950">{data.song_name.slice(0, 20)}...</p>
+            <p className="text-sm text-gray-950">{truncateText(data.song_name, 20)}</p>
             <p className="text-xs text-gray-500">{data.song_artist}</p>
           </div>
         </div>
+
         <Link href={`https://open.spotify.com/track/${data.song_id}`} rel="noopener noreferrer">
           <Image
             src="/spotify.svg"
