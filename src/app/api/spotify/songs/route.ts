@@ -1,31 +1,45 @@
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const token = request.cookies.get('spotify_access_token')
+  let token = request.cookies.get('spotify_access_token')?.value;
 
-  if(!token) {
-    return new Response('No token found', { status: 401 })
+  // If no token, try to get a new one
+  if (!token) {
+    const tokenResponse = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/spotify/token`, {
+      credentials: 'include',
+      next: {
+        revalidate: 50 * 60
+      }
+    });
+
+    if (!tokenResponse.ok) {
+      return new Response('Failed to obtain token', { status: 401 });
+    }
+    // Get the new token from the response
+    const tokenData = await tokenResponse.json();
+    token = tokenData.access_token;
   }
 
-  const { searchParams } = new URL(request.url)
-  const query = searchParams.get('query')
+  const { searchParams } = new URL(request.url);
+  const query = searchParams.get('query');
 
-  if(!query) {
-    return new Response('No query found', { status: 400 })
+  if (!query) {
+    return new Response('No query found', { status: 400 });
   }
+
+  console.log('using token', token);
 
   const response = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`, {
     headers: {
-      Authorization: `Bearer ${token.value}`,
+      Authorization: `Bearer ${token}`,
     },
-  })
+  });
 
-
-  if(!response.ok) {
-    return new Response('Failed to fetch songs', { status: 500 })
+  if (!response.ok) {
+    return new Response('Failed to fetch songs', { status: 500 });
   }
 
-  const data = await response.json()
+  const data = await response.json();
 
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const tracks = data.tracks.items.map((track: any) => ({

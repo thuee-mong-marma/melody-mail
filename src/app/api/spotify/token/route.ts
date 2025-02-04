@@ -1,5 +1,3 @@
-import { cookies } from "next/headers";
-
 export async function GET() {
   const client_id = process.env.SPOTIFY_CLIENT_ID;
   const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -11,7 +9,7 @@ export async function GET() {
       Authorization: `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
     },
     body: 'grant_type=client_credentials',
-    cache: 'no-store',
+    cache: 'no-store'
   });
 
   if (!response.ok) {
@@ -20,15 +18,8 @@ export async function GET() {
 
   const data = await response.json();
 
-  cookies().set('spotify_access_token', data.access_token, {
-    httpOnly: true,
-    secure: true,
-    path: '/',
-    maxAge: data.expires_in,
-  })
-
-  return new Response(JSON.stringify(data), { status: 200 })
-
+  return new Response(JSON.stringify(data), { status: 200, headers: {
+      "Set-Cookie": `spotify_access_token=${data.access_token}; HttpOnly; Secure; Path=/; Max-Age=${data.expires_in};`,
+    },
+  });
 }
-
-
