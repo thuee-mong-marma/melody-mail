@@ -19,8 +19,7 @@ import SongSelector from "@/components/SongSelector";
 import { createPost } from "@/app/actions/posts";
 import { Posts } from "@prisma/client";
 import { PostSuccess } from "../PostSuccess";
-import { setHistoryData } from "@/lib/utils";
-
+import { getCookie, setCookie, COOKIE_NAME } from "@/lib/cookies";
 
 const searchFormSchema = z.object({
   recipient: z.string().min(1, {
@@ -37,8 +36,20 @@ const searchFormSchema = z.object({
   }),
 });
 
+
+const setHistoryData = (postId: string) => {
+  const history = getCookie(COOKIE_NAME)
+  if(history && Array.isArray(history)) {
+    history.push(postId)
+    setCookie(COOKIE_NAME, JSON.stringify(history))
+  } else {
+    setCookie(COOKIE_NAME, JSON.stringify([postId]))
+  }
+}
+
 const SubmitPost = () => {
   const [isSubmitted, setSubmitted] = useState(false);
+
   const [submittedPost, setSubmittedPost] = useState<Posts | null>(null);
 
   const form = useForm<z.infer<typeof searchFormSchema>>({

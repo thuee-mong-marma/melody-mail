@@ -22,4 +22,5 @@ model Posts {
   song_artist String
   song_image String
   createdAt DateTime @default(now()) @map("created_at")
+  total_views Int @default(0)
 }

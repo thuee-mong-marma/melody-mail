@@ -9,7 +9,7 @@ interface GetPostsProps {
     query?: string;
 }
 
-export async function createPost(data: Omit<Posts, 'id' | 'createdAt'>) {
+export async function createPost(data: Omit<Posts, 'id' | 'createdAt' | 'total_views'>) {
   const newPost = await prismadb.posts.create({
       data
   });
@@ -17,7 +17,6 @@ export async function createPost(data: Omit<Posts, 'id' | 'createdAt'>) {
 }
 
 export async function getAllPosts() {
-
   const posts = await prismadb.posts.findMany({
     orderBy: {
       createdAt: "desc"
