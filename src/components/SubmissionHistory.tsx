@@ -1,14 +1,13 @@
 "use client";
 
 import { getCookie, COOKIE_NAME } from "@/lib/cookies";
-import CustomAlert from "./CustomAlert";
 import Link from "next/link";
 
 const SubmissionHistory = () => {
   const historyData = getCookie(COOKIE_NAME);
 
   if (!historyData.length)
-    return <CustomAlert description="Looks like there's no history yet."/>;
+    return <p>Looks like there&apos;s no history yet.</p>;
 
   return (
     <div className="bg-gray-200 p-4 rounded-lg space-y-4">

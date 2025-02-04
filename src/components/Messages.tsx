@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { MessageCard } from "@/components/MessageCard";
-import { getPosts } from "@/app/actions/posts";
+import { getPosts } from "@/actions/posts";
 import { Posts } from "@prisma/client";
 import { useInView } from "react-intersection-observer";
 

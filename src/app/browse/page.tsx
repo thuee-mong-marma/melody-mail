@@ -3,7 +3,7 @@ import { browseAlert } from "@/data/alert";
 import CustomAlert from "@/components/CustomAlert";
 import SearchInput from "@/components/Searchinput";
 import { Messages } from "@/components/Messages";
-import { getPosts } from "@/app/actions/posts";
+import { getPosts } from "@/actions/posts";
 
 const BrowsePage = async ({
   searchParams,
@@ -21,10 +21,11 @@ const BrowsePage = async ({
         />
         <p className="text-center">
           I would love to hear your feedback and suggestions to help me improve{" "}
-          <span className="font-handwritten text-2xl">MelodyMail</span>, Click{" "}
+          <span className="font-handwritten text-2xl">MelodyMail</span>,<br className="block sm:hidden"/> Click{" "}
           <Link
-            href="https://forms.gle/3y32138346234"
+            href="https://forms.gle/vqcRn7FVqSVijeS27"
             className="underline"
+            target="_blank"
           >
             here
           </Link>{" "}

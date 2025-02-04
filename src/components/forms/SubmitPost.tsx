@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import SongSelector from "@/components/SongSelector";
-import { createPost } from "@/app/actions/posts";
+import { createPost } from "@/actions/posts";
 import { Posts } from "@prisma/client";
 import { PostSuccess } from "../PostSuccess";
 import { getCookie, setCookie, COOKIE_NAME } from "@/lib/cookies";
