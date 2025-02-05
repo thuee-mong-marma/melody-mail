@@ -1,21 +1,24 @@
 import { useState} from "react";
 import { songs } from "@/data/songs";
 import AsyncSelect from "react-select/async";
-import { GroupBase, OptionsOrGroups } from "react-select";
 import CustomSelectOption, { SongOption } from "./CustomSelectOption";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { debounce } from "@/lib/utils";
 
 const SongSelector = ({ ...props }) => {
   const [song, setSong] = useState<SongOption | null>(null);
 
-  const promiseOptions = async (
-    inputValue: string
-  ): Promise<OptionsOrGroups<SongOption, GroupBase<SongOption>>> => {
-    return fetch(`/api/spotify/songs?query=${inputValue}`, {
-        credentials: "include",
-      }).then((res) => res.json())
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const loadSongs = (query: string, callback: (data: any) => void) => {
+    fetch(`/api/spotify/songs?query=${query}`, {
+      credentials: "include",
+    }).then((res) => res.json()).then((data) => {
+      callback(data);
+    });
   }
+
+  const debouncedLoadSongs = debounce(loadSongs, 500);
 
   const handleChange = (selectedOption: SongOption | null) => {
     if (selectedOption) {
@@ -25,13 +28,12 @@ const SongSelector = ({ ...props }) => {
     }
   };
 
-
   return (
     <div className={cn(song && "p-2 border rounded-md space-y-2")}>
       <AsyncSelect
         cacheOptions
         defaultOptions={songs.slice(0, 10) as SongOption[]}
-        loadOptions={promiseOptions}
+        loadOptions={debouncedLoadSongs}
         components={{ Option: CustomSelectOption }}
         onChange={handleChange}
       />
