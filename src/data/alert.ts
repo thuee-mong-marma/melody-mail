@@ -9,6 +9,6 @@ export const submitAlert = {
 }
 
 export const historyAlert = {
-  title: "",
+  title: "Check Your History",
   description: "Your history will be removed after 7 days.",
 }

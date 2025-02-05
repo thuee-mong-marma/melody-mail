@@ -16,25 +16,28 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import SongSelector from "@/components/SongSelector";
-import { createPost } from "@/app/actions/posts";
+import { createPost } from "@/actions/posts";
 import { Posts } from "@prisma/client";
 import { PostSuccess } from "../PostSuccess";
 import { getCookie, setCookie, COOKIE_NAME } from "@/lib/cookies";
 
 const searchFormSchema = z.object({
   recipient: z.string().min(1, {
-    message: "Recipent can't be empty.",
+    message: "Recipient can't be empty.",
   }),
   message: z.string().min(1, {
     message: "Message can't be empty.",
   }),
   song: z.object({
-    song_id: z.string(),
-    song_name: z.string(),
-    song_artist: z.string(),
-    song_image: z.string(),
+    song_id: z.string().min(1),
+    song_name: z.string().min(1),
+    song_artist: z.string().min(1),
+    song_image: z.string().min(1),
+  }).refine((data) => data.song_id && data.song_name && data.song_artist && data.song_image, {
+    message: "Please choose a song.",
   }),
 });
+
 
 
 const setHistoryData = (postId: string) => {
@@ -97,9 +100,9 @@ const SubmitPost = () => {
             name="recipient"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Recipent</FormLabel>
+                <FormLabel>Recipient</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter recipent name" {...field} />
+                  <Input placeholder="Enter recipient name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

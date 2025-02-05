@@ -14,7 +14,6 @@ export function getCookie(key: string) {
   return values ? JSON.parse(values) : []
 }
 
-
 export function deleteCookie(key: string) {
   Cookies.remove(key)
 }

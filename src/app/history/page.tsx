@@ -5,7 +5,7 @@ import SubmissionHistory from "@/components/SubmissionHistory";
 export default function HistoryPage() {
   return (
     <div className="w-full sm:max-w-[65%] mx-auto space-y-4">
-      <CustomAlert description={historyAlert.description} className="bg-blue-600"/>
+      <CustomAlert title={historyAlert.title} description={historyAlert.description}/>
       <SubmissionHistory />
     </div>
   );

@@ -1,5 +1,5 @@
 import Marquee from "./Marquee";
-import { getPosts } from "@/app/actions/posts";
+import { getPosts } from "@/actions/posts";
 import { Posts } from "@prisma/client";
 
 export const Slideshow = async () => {
