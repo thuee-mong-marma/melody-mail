@@ -1,5 +1,3 @@
-"use client";
-
 import { getCookie, COOKIE_NAME } from "@/lib/cookies";
 import Link from "next/link";
 

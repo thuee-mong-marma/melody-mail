@@ -9,8 +9,6 @@ import { cn } from "@/lib/utils";
 const SongSelector = ({ ...props }) => {
   const [song, setSong] = useState<SongOption | null>(null);
 
-  console.log('song selector props', props)
-
   const promiseOptions = async (
     inputValue: string
   ): Promise<OptionsOrGroups<SongOption, GroupBase<SongOption>>> => {
@@ -21,7 +19,7 @@ const SongSelector = ({ ...props }) => {
 
   const handleChange = (selectedOption: SongOption | null) => {
     if (selectedOption) {
-      console.log('selectedOption', selectedOption)
+      // console.log('selectedOption', selectedOption)
       setSong(selectedOption);
       props.onChange(selectedOption);
     }
