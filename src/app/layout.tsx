@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     "Melody Mail is an anonymous message board platform where you share your unspoken words or thoughts to your special or loved ones through songs.",
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html lang="en">
       <body
@@ -32,4 +32,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

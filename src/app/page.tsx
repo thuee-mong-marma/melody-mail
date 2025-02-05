@@ -2,12 +2,14 @@ import { Hero } from "@/components/Hero";
 import { Details } from "@/components/Details";
 import { Slideshow } from "@/components/Slideshow";
 
-export default function Home() {
+const HomePage = () => {
   return (
     <>
-      <Hero/>
+      <Hero />
       <Details/>
       <Slideshow/>
     </>
   );
 }
+
+export default HomePage;
