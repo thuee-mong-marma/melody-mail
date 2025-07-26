@@ -10,6 +10,12 @@ const getRawEnv = (): Record<keyof EnvVars, string | undefined> => ({
 });
 
 export const env: EnvVars = (() => {
+  // Only log in development to avoid exposing sensitive data
+  if (process.env.NODE_ENV === 'development') {
+    const rawEnv = getRawEnv();
+    console.log('Environment variables loaded:', Object.keys(rawEnv).filter(key => rawEnv[key as keyof EnvVars]));
+  }
+
   const parsed = EnvSchema.safeParse(getRawEnv());
 
   if (!parsed.success) {

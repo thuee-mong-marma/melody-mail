@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 interface CopyButtonProps {
   text: string;
@@ -21,11 +21,7 @@ const CopyButton = ({ text, className }: CopyButtonProps) => {
         }, 2000);
       })
       .catch(() => {
-        toast({
-          title: "Error",
-          description: "Failed to copy code",
-          variant: "destructive",
-        });
+        toast.error("Failed to copy code");
       });
   };
 

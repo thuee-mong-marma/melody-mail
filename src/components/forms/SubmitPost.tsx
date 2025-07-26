@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -17,9 +16,9 @@ import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import SongSelector from "@/components/SongSelector";
 import { createPost } from "@/actions/posts";
-import { Posts } from "@prisma/client";
-import { PostSuccess } from "../PostSuccess";
+import { toast } from "sonner";
 import { getCookie, setCookie, COOKIE_NAME } from "@/lib/cookies";
+// import { useRouter } from "next/navigation";
 
 const searchFormSchema = z.object({
   recipient: z.string().min(1, {
@@ -41,7 +40,7 @@ const searchFormSchema = z.object({
 const setHistoryData = (postId: string) => {
   const history = getCookie(COOKIE_NAME)
 
-  console.log('history', history)
+  // console.log('history', history)
   if(history && Array.isArray(history)) {
     history.push(postId)
     setCookie(COOKIE_NAME, JSON.stringify(history))
@@ -51,9 +50,7 @@ const setHistoryData = (postId: string) => {
 }
 
 const SubmitPost = () => {
-  const [isSubmitted, setSubmitted] = useState(false);
-
-  const [submittedPost, setSubmittedPost] = useState<Posts | null>(null);
+  // const router = useRouter()
 
   const form = useForm<z.infer<typeof searchFormSchema>>({
     resolver: zodResolver(searchFormSchema),
@@ -71,22 +68,17 @@ const SubmitPost = () => {
 
 
   const onSubmit = async (values: z.infer<typeof searchFormSchema>) => {
-    console.log(values);
+    // console.log(values);
     const { song, message, recipient } = values;
     const { song_id, song_name, song_artist, song_image } = song;
     const post = await createPost({recipient, message, song_id, song_name, song_artist, song_image});
 
-    if(post) {
-      setSubmitted(true);
-      setSubmittedPost(post);
+    if(post.id) {
+      toast.success('Message submitted successfully!')
       setHistoryData(post.id)
+      // router.push(`/details/${post.id}`)
     }
   };
-
-
-  if(isSubmitted) {
-    return <PostSuccess id={submittedPost?.id as string} />
-  }
 
   return (
     <div className="w-full">

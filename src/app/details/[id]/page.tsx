@@ -1,11 +1,10 @@
 import SpotifyWebPlayer from "@/components/WebPlayer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { getPostById, updatePost } from "@/actions/posts";
+import { getPostById } from "@/actions/posts";
 
-
-const MessageDetailPage = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+const MessageDetailPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
 
   const data = await getPostById(id);
 
@@ -25,11 +24,11 @@ const MessageDetailPage = async ({ params }: { params: { id: string } }) => {
     day: 'numeric'
   });
 
-  const updatedPost = await updatePost(id, {
-    total_views: data.total_views + 1
-  });
+  // const updatedPost = await updatePost(id, {
+  //   total_views: data.total_views + 1
+  // });
 
-  console.log('updatedPost', updatedPost);
+  // console.log('updatedPost', updatedPost);
 
   return (
     <div className="space-y-8">
@@ -48,7 +47,7 @@ const MessageDetailPage = async ({ params }: { params: { id: string } }) => {
         <p className="text-md sm:text-lg">Also here&apos;s a message from the sender:</p>
         <p className="text-3xl sm:text-4xl text-slate-500 font-handwritten p-4 border rounded-md">{data.message}</p>
         <p className="text-slate-500">Sent on {formattedDate}</p>
-        {data.total_views > 0 && <p className="text-slate-500">{data.total_views} other people have viewed this message</p>}
+        {/* {data.total_views > 0 && <p className="text-slate-500">{data.total_views} other people have viewed this message</p>} */}
       </div>
       <div className="flex flex-col items-center gap-4">
         <p>Want to send a song to someone?</p>

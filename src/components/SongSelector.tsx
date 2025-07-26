@@ -1,3 +1,5 @@
+'use client'
+
 import { useState} from "react";
 import { songs } from "@/data/songs";
 import AsyncSelect from "react-select/async";
@@ -37,7 +39,7 @@ const SongSelector = ({ ...props }) => {
         components={{ Option: CustomSelectOption }}
         onChange={handleChange}
       />
-      {song && (
+      {song && song.song_id && (
         <div className="flex items-center gap-2">
           <Image
             src={song.song_image}

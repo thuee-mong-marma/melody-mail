@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     return new Response('No query found', { status: 400 });
   }
 
-  console.log('using token', token);
+  // console.log('using token', token);
 
   const response = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`, {
     headers: {

@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { poppins, grapeNuts } from "@/lib/fonts";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Melody Mail",
@@ -19,14 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn("antialiased", poppins.className, grapeNuts.variable)}
-      >
+      <body className={cn("antialiased", poppins.className, grapeNuts.variable)}>
         <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange>
           <Navbar />
           <main className="max-w-screen-lg mx-auto p-4 min-h-[calc(100vh-66px-93px)]">
             {children}
           </main>
+          <Toaster richColors position="top-center"/>
           <Footer />
         </ThemeProvider>
       </body>
