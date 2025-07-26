@@ -1,12 +1,11 @@
-export async function GET() {
-  const client_id = process.env.SPOTIFY_CLIENT_ID;
-  const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+import { env } from "@/config/env";
 
+export async function GET() {
   const response = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
+      Authorization: `Basic ${Buffer.from(`${env.SPOTIFY_CLIENT_ID}:${env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
     },
     body: 'grant_type=client_credentials',
     cache: 'no-store'

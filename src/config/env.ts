@@ -1,32 +1,22 @@
-import z from "zod";
-import 'dotenv/config';
+import { EnvSchema, EnvVars } from './env.schema';
 
-const createEnv = () => {
-  const EnvSchema = z.object({
-    APP_URL: z.string().optional().default('http://localhost:3000'),
-    MONGODB_URL: z.string(),
-  });
+const getRawEnv = (): Record<keyof EnvVars, string | undefined> => ({
+  APP_URL: process.env.APP_URL,
+  MONGODB_URL: process.env.MONGODB_URL,
+  SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
+  SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
+  COOKIE_SECRET: process.env.COOKIE_SECRET,
+});
 
-  const envVars = {
-    APP_URL: process.env.NEXT_PUBLIC_URL,
-    MONGODB_URL: process.env.MONGODB_URL,
-  };
+export const env: EnvVars = (() => {
+  const parsed = EnvSchema.safeParse(getRawEnv());
 
-  const parsedEnv = EnvSchema.safeParse(envVars);
-
-  if (!parsedEnv.success) {
-    throw new Error(
-      `Invalid env provided.
-      The following variables are missing or invalid:
-      ${Object.entries(parsedEnv.error.flatten().fieldErrors)
-      .map(([k, v]) => `- ${k}: ${v}`)
-      .join('\n')}
-    `,
-    );
+  if (!parsed.success) {
+    const errors = Object.entries(parsed.error.flatten().fieldErrors)
+      .map(([k, v]) => `- ${k}: ${v?.join(', ')}`)
+      .join('\n');
+    throw new Error(`❌ Invalid environment variables:\n${errors}`);
   }
 
-  return parsedEnv.data ?? {};
-};
-
-export const env = createEnv();
-
+  return parsed.data;
+})();

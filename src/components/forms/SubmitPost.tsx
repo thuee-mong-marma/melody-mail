@@ -39,7 +39,6 @@ const searchFormSchema = z.object({
 });
 
 
-
 const setHistoryData = (postId: string) => {
   const history = getCookie(COOKIE_NAME)
   if(history && Array.isArray(history)) {

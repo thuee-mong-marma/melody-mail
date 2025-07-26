@@ -1,11 +1,12 @@
 import { NextRequest } from "next/server";
+import { env } from "@/config/env";
 
 export async function GET(request: NextRequest) {
   let token = request.cookies.get('spotify_access_token')?.value;
 
   // If no token, try to get a new one
   if (!token) {
-    const tokenResponse = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/spotify/token`, {
+    const tokenResponse = await fetch(`${env.APP_URL}/api/spotify/token`, {
       credentials: 'include',
       next: {
         revalidate: 50 * 60
