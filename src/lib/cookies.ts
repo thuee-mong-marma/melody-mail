@@ -11,6 +11,7 @@ export function setCookie(key: string, value: string, options = {}) {
 
 export function getCookie(key: string) {
   const values = Cookies.get(key)
+  console.log('values', values)
   return values ? JSON.parse(values) : []
 }
 

@@ -38,10 +38,10 @@ const searchFormSchema = z.object({
   }),
 });
 
-
-
 const setHistoryData = (postId: string) => {
   const history = getCookie(COOKIE_NAME)
+
+  console.log('history', history)
   if(history && Array.isArray(history)) {
     history.push(postId)
     setCookie(COOKIE_NAME, JSON.stringify(history))

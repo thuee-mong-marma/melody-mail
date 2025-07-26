@@ -1,6 +1,8 @@
+import { env as config } from "@/config/env";
+
 export async function GET() {
-  const client_id = process.env.SPOTIFY_CLIENT_ID;
-  const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+  const client_id = config.SPOTIFY_CLIENT_ID;
+  const client_secret = config.SPOTIFY_CLIENT_SECRET;
 
   const response = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
